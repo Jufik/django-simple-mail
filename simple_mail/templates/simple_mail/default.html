@@ -376,7 +376,7 @@
                                         {% if footer_content %}
                                         <tr>
                                             <td valign="top" class="footerContent" {% if footer_links %}style="padding-top: 0;"{% endif %}>
-                                            	{{ footer_content|linebreaksbr }}
+                                            	{{ footer_content|safe|linebreaksbr }}
                                             </td>
                                         </tr>
                                         {% endif %}
