@@ -55,11 +55,11 @@ Add ``simple_mail`` to your INSTALLED_APPS settings.
 
 .. code:: python
 
-    INSTALLED_APPS = (
-        ...
-        'simple_mail',
-        ...
-    )
+   INSTALLED_APPS = (
+       ...
+       'simple_mail',
+       ...
+   )
 
 Then run :
 
@@ -67,23 +67,23 @@ Then run :
 
 Quoting Django’s documentation :
 
-    Mail is sent using the SMTP host and port specified in the
-    ``EMAIL_HOST`` and ``EMAIL_PORT`` settings. The ``EMAIL_HOST_USER``
-    and ``EMAIL_HOST_PASSWORD`` settings, if set, are used to
-    authenticate to the SMTP server, and the ``EMAIL_USE_TLS`` and
-    ``EMAIL_USE_SSL`` settings control whether a secure connection is
-    used.
+   Mail is sent using the SMTP host and port specified in the
+   ``EMAIL_HOST`` and ``EMAIL_PORT`` settings. The ``EMAIL_HOST_USER``
+   and ``EMAIL_HOST_PASSWORD`` settings, if set, are used to
+   authenticate to the SMTP server, and the ``EMAIL_USE_TLS`` and
+   ``EMAIL_USE_SSL`` settings control whether a secure connection is
+   used.
 
 So you need to set the following
 
 ::
 
-    EMAIL_HOST = ''
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
+   EMAIL_HOST = ''
+   EMAIL_PORT = 587
+   EMAIL_HOST_USER = ''
+   EMAIL_HOST_PASSWORD = ''
+   EMAIL_USE_TLS = True
+   EMAIL_USE_SSL = False
 
 Integrations
 ------------
@@ -100,11 +100,11 @@ Then add ``ckeditor`` to your INSTALLED_APPS settings.
 
 .. code:: python
 
-    INSTALLED_APPS = (
-        ...
-        'ckeditor',
-        ...
-    )
+   INSTALLED_APPS = (
+       ...
+       'ckeditor',
+       ...
+   )
 
 And set the following in your settings :
 
@@ -122,11 +122,11 @@ Then add ``modeltranslation`` to your INSTALLED_APPS settings.
 
 .. code:: python
 
-    INSTALLED_APPS = (
-        ...
-        'modeltranslation',
-        ...
-    )
+   INSTALLED_APPS = (
+       ...
+       'modeltranslation',
+       ...
+   )
 
 And set the following in your settings :
 
@@ -148,14 +148,14 @@ The ``email_key`` attribute must not exceed 100 characters.
 
 .. code:: python
 
-    from simple_mail.mailer import BaseSimpleMail, simple_mailer
+   from simple_mail.mailer import BaseSimpleMail, simple_mailer
 
 
-    class WelcomeMail(BaseSimpleMail):
-        email_key = 'welcome'
+   class WelcomeMail(BaseSimpleMail):
+       email_key = 'welcome'
 
 
-    simple_mailer.register(WelcomeMail)
+   simple_mailer.register(WelcomeMail)
 
 Then run ``./manage.py register_mails`` to create those mail into the
 database.
@@ -170,9 +170,9 @@ You can the send the ``WelcomeMail`` the following way :
 
 .. code:: python
 
-    welcome_mail = WelcomeMail()
-    welcome_mail.send(to, from_email=None, bcc=[], connection=None, attachments=[],
-                       headers={}, cc=[], reply_to=[], fail_silently=False)
+   welcome_mail = WelcomeMail()
+   welcome_mail.send(to, from_email=None, bcc=[], connection=None, attachments=[],
+                      headers={}, cc=[], reply_to=[], fail_silently=False)
 
 Passing variables to email
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -181,47 +181,47 @@ You can pass variable to email with the ``context`` attribute :
 
 .. code:: python
 
-    from simple_mail.mailer import BaseSimpleMail, simple_mailer
+   from simple_mail.mailer import BaseSimpleMail, simple_mailer
 
 
-    class WelcomeMail(BaseSimpleMail):
-        email_key = 'welcome'
-        context = {
-            'title' : 'My email title',
-            'user': 'the user'
-        }
+   class WelcomeMail(BaseSimpleMail):
+       email_key = 'welcome'
+       context = {
+           'title' : 'My email title',
+           'user': 'the user'
+       }
 
 
-    simple_mailer.register(WelcomeMail)
+   simple_mailer.register(WelcomeMail)
 
 Or you can create a ``set_context`` method:
 
 .. code:: python
 
-    from simple_mail.mailer import BaseSimpleMail, simple_mailer
+   from simple_mail.mailer import BaseSimpleMail, simple_mailer
 
 
-    class WelcomeMail(BaseSimpleMail):
-        email_key = 'welcome'
+   class WelcomeMail(BaseSimpleMail):
+       email_key = 'welcome'
 
-        def set_context(self, user_id, welcome_link):
-            user = User.objects.get(id=user_id)
-            self.context = {
-                'user': user,
-                'welcome_link': welcome_link
-            }
+       def set_context(self, user_id, welcome_link):
+           user = User.objects.get(id=user_id)
+           self.context = {
+               'user': user,
+               'welcome_link': welcome_link
+           }
 
 
-    simple_mailer.register(WelcomeMail)
+   simple_mailer.register(WelcomeMail)
 
 You will then need to call the ``set_context`` before sending an email:
 
 .. code:: python
 
-    welcome_mail = WelcomeMail()
-    welcome_mail.set_context(user_id, welcome_link)
-    welcome_mail.send(to, from_email=None, bcc=[], connection=None, attachments=[],
-                       headers={}, cc=[], reply_to=[], fail_silently=False)
+   welcome_mail = WelcomeMail()
+   welcome_mail.set_context(user_id, welcome_link)
+   welcome_mail.send(to, from_email=None, bcc=[], connection=None, attachments=[],
+                      headers={}, cc=[], reply_to=[], fail_silently=False)
 
 Email preview and test email
 ----------------------------
@@ -237,25 +237,25 @@ This method should not take any argument :
 
 .. code:: python
 
-    from simple_mail.mailer import BaseSimpleMail, simple_mailer
+   from simple_mail.mailer import BaseSimpleMail, simple_mailer
 
 
-    class WelcomeMail(BaseSimpleMail):
-        email_key = 'welcome'
+   class WelcomeMail(BaseSimpleMail):
+       email_key = 'welcome'
 
-        def set_context(self, user_id, welcome_link):
-            user = User.objects.get(id=user_id)
-            self.context = {
-                'user': user,
-                'welcome_link': welcome_link
-            }
-        
-        def set_test_context(self):
-            user_id = User.objects.order_by('?').first().id
-            self.set_context(user_id, 'http://my-webiste.com/my-path')
+       def set_context(self, user_id, welcome_link):
+           user = User.objects.get(id=user_id)
+           self.context = {
+               'user': user,
+               'welcome_link': welcome_link
+           }
+       
+       def set_test_context(self):
+           user_id = User.objects.order_by('?').first().id
+           self.set_context(user_id, 'http://my-webiste.com/my-path')
 
 
-    simple_mailer.register(WelcomeMail)
+   simple_mailer.register(WelcomeMail)
 
 This method impact the fields displayed in the **Context** section of
 the admin.
@@ -267,14 +267,14 @@ Here are all the settings you can use, with their default value :
 
 ::
 
-    # enable django-modeltranslation integration
-    SIMPLE_MAIL_USE_MODELTRANSALTION = False
-    # enable django-ckeditor integration
-    SIMPLE_MAIL_USE_CKEDITOR = False
-    # set default email template
-    SIMPLE_MAIL_DEFAULT_TEMPLATE = 'simple_mail/default.html'
-    # enable/disable cssutils warning logs
-    SIMPLE_MAIL_LOG_CSS_WARNING = False
+   # enable django-modeltranslation integration
+   SIMPLE_MAIL_USE_MODELTRANSALTION = False
+   # enable django-ckeditor integration
+   SIMPLE_MAIL_USE_CKEDITOR = False
+   # set default email template
+   SIMPLE_MAIL_DEFAULT_TEMPLATE = 'simple_mail/default.html'
+   # enable/disable cssutils warning logs
+   SIMPLE_MAIL_LOG_CSS_WARNING = False
 
 Mail configuration & edition
 ----------------------------
@@ -312,21 +312,21 @@ By setting a ``template`` attribute from you
 
 .. code:: python
 
-    from simple_mail.mailer import BaseSimpleMail, simple_mailer
+   from simple_mail.mailer import BaseSimpleMail, simple_mailer
 
 
-    class WelcomeMail(BaseSimpleMail):
-        email_key = 'welcome'
-        template = 'my_app/my_email_template.html'
+   class WelcomeMail(BaseSimpleMail):
+       email_key = 'welcome'
+       template = 'my_app/my_email_template.html'
 
 
-    simple_mailer.register(WelcomeMail)
+   simple_mailer.register(WelcomeMail)
 
 Or by setting ``SIMPLE_MAIL_DEFAULT_TEMPLATE`` in your settings :
 
 .. code:: python
 
-    SIMPLE_MAIL_DEFAULT_TEMPLATE = 'my_app/my_email_template.html'
+   SIMPLE_MAIL_DEFAULT_TEMPLATE = 'my_app/my_email_template.html'
 
 Support
 -------
